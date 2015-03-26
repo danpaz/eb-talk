@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <title>Untitled</title>
+  <title>Elastic Beanstalk</title>
   <style type="text/css">
     body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -400,11 +400,168 @@ pre .chunk {
     <div class="progress-bar"></div>
   </div>
 
-
-  <div class="controls">
-    <div class="arrow prev"></div>
-    <div class="arrow next"></div>
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="elastic-beanstalk">Elastic Beanstalk</h1>
+<h2 id="rocking-devops-on-aws-">Rocking devops on AWS.</h2>
+</section>
   </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="features">Features</h3>
+<ul>
+<li>Multiple environment configurations.</li>
+<li>Provisions resources sensibly.</li>
+<li>Autoscaling.</li>
+<li>Cloudwatch monitoring pre-configured out of the box.</li>
+<li>No additional charge above AWS resource usage.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="turns-this">Turns this</h3>
+<p>Updating a configuration secret:</p>
+<pre><code># Update the config template.
+$ rake upload_cookbook[something]
+# Add variable to the EDB.
+$ rake databag:secret_edit[production,webapp_whatever]
+$ rake databag:secret_upload[production,webapp_whatever]
+# Restart workers.
+$ rake chef:client_run[*-app-2-not-app-*, production]
+$ rake chef:client_run[*-app-not-app-2-*, production]
+# Illegible log messages follow.</code></pre>
+<p>Deploying:</p>
+<pre><code>$ grunt deploy:assets
+# Update deploy hash. Commit to monolithic ops repo.
+# Upload to hosted chef.
+$ knife data bag from file webapp_darwin deploy.json
+# Confirm you have the right nodes.
+$ rake chef:query[&quot;*-site-rw-*&quot;,production]
+# Confirm you have the right nodes.
+$ rake chef:query[&quot;*-site-rw-*&quot;,production]</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="into-this">Into this</h3>
+<p>Updating a configuration secret:</p>
+<pre><code>$ workon pn-processing
+$ eb setenv API_KEY=secret</code></pre>
+<p>Deploying:</p>
+<pre><code>$ eb deploy
+# Boom.</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="node-">Node!</h3>
+<p>Supported versions as of March 31, 2015:</p>
+<ul>
+<li>0.8.26</li>
+<li>0.8.28</li>
+<li>0.10.21</li>
+<li>0.10.26</li>
+<li>0.10.31</li>
+<li>0.12.0</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><p><img src="./img/aws.png" alt="aws halo"></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="components-eb-lingo-">Components (EB lingo)</h3>
+<h4 id="application">Application</h4>
+<p>A logical collection of Elastic Beanstalk components, conceptually similar to a
+folder.</p>
+<h4 id="application-version">Application Version</h4>
+<p>A labeled zipped file of deployable code. Stored on S3 and labelled by the git
+commit hash.</p>
+<h4 id="environment">Environment</h4>
+<p>A single application version that is deployed onto AWS resources, labeled by an
+environment name. For example, we typically have a Staging and a Production
+environment.</p>
+<h4 id="environment-configuration">Environment Configuration</h4>
+<p>A collection of settings and parameters that define how an environment behaves,
+including process environment variables.</p>
+<h4 id="environment-tiers">Environment Tiers</h4>
+<p>Either a <em>Web Server</em> that handles HTTP requests, or a <em>Worker</em> that handles
+background processing tasks.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="batteries-not-included">Batteries not included</h3>
+<p>Every EB application comes with:</p>
+<ul>
+<li>1 Elastic Load Balancer</li>
+<li>1 Autoscaling group</li>
+<li>1+ EC2 instances</li>
+<li>1 security group</li>
+<li>CNAME to load balancer url</li>
+<li>Cloudwatch metrics</li>
+<li>Rotating logs stored in S3</li>
+<li>For worker tier: 1 SQS queue</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><p><img src="./img/eb-console.png" alt="eb console"></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="eb-cli">eb cli</h3>
+<pre><code>$ eb -h
+commands:
+   clone       Clones an environment.
+   config      Edits the environment configuration settings.
+   console     Opens the environment in the AWS Elastic Beanstalk Management Console.
+   create      Creates a new environment.
+   deploy      Deploys your source code to the environment.
+   events      Gets recent events.
+   init        Initializes your directory with the EB CLI. Creates the application.
+   list        Lists all environments.
+   logs        Gets recent logs.
+   open        Opens the application URL in a browser.
+   printenv    Shows the environment variables.
+   scale       Changes the number of running instances.
+   setenv      Sets environment variables.
+   ssh         Opens the SSH client to connect to an instance.
+   status      Gets environment information and status.
+   terminate   Terminates the environment.
+   use         Sets default environment.</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h1 id="demo">Demo</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h1 id="bonus-slides">Bonus slides</h1>
+<h2 id="things-that-are-hard-">Things that are hard.</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h3 id="identity-management">Identity management</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="customization">Customization</h3>
+<ul>
+<li>Non-amazon services?</li>
+<li>Node and python on the same server?</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Daniel Paz-Soldan</h1>
+    <h3 class="twitter">
+      <a href="http://twitter.com/@danpazsoldan">@danpazsoldan</a>
+    </h3>
+    <h3 class="url">
+      <a href="http://danpaz.github.io/eb-talk">http://danpaz.github.io/eb-talk</a>
+    </h3>
+</div>
+</section>
+  </div>
+
 
 
   <script type="text/javascript">
