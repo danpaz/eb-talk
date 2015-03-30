@@ -10,17 +10,17 @@ progress: true
 --
 
 # Elastic Beanstalk
-## Rocking devops on AWS.
+## Rocking devops on AWS
 
 --
 
 ### Features
 
-* Multiple environment configurations.
-* Provisions resources sensibly.
-* Autoscaling.
-* Cloudwatch monitoring pre-configured out of the box.
-* No additional charge above AWS resource usage.
+* Multiple environment configurations
+* Provisions resources sensibly
+* Autoscaling
+* Cloudwatch monitoring pre-configured
+* No additional charge above AWS resource usage
 
 --
 
@@ -37,6 +37,10 @@ Updating a configuration secret:
     $ rake chef:client_run[*-app-2-not-app-*, production]
     $ rake chef:client_run[*-app-not-app-2-*, production]
     # Illegible log messages follow.
+
+--
+
+### And this
 
 Deploying:
 
@@ -65,15 +69,16 @@ Deploying:
 
 --
 
-### Node!
+### Supported Platforms
 
-Supported versions as of March 31, 2015:
-* 0.8.26
-* 0.8.28
-* 0.10.21
-* 0.10.26
-* 0.10.31
-* 0.12.0
+* Java
+* Windows and .NET
+* Node.js
+* PHP
+* Python
+* Ruby
+* **Docker**
+* Custom AMI
 
 --
 
@@ -87,18 +92,26 @@ Supported versions as of March 31, 2015:
 A logical collection of Elastic Beanstalk components, conceptually similar to a
 folder.
 
+--
+
 #### Application Version
 A labeled zipped file of deployable code. Stored on S3 and labelled by the git
 commit hash.
 
+--
+
 #### Environment
 A single application version that is deployed onto AWS resources, labeled by an
 environment name. For example, we typically have a Staging and a Production
-environment.
+environment for each application.
+
+--
 
 #### Environment Configuration
 A collection of settings and parameters that define how an environment behaves,
 including process environment variables.
+
+--
 
 #### Environment Tiers
 Either a *Web Server* that handles HTTP requests, or a *Worker* that handles
@@ -121,11 +134,17 @@ Every EB application comes with:
 
 --
 
+![eb architecture](./img/eb-architecture.png)
+
+--
+
 ![eb console](./img/eb-console.png)
 
 --
 
 ### eb cli
+
+Depends on python, run it in virtualenv.
 
     $ eb -h
     commands:
@@ -149,20 +168,53 @@ Every EB application comes with:
 
 --
 
+# Customization & Configuration
+
+--
+
+### Customize EC2 instances configuration
+
+Add a `.config` file in .ebextensions directory to:
+* Install packages from yum, rubygems, python, or rpm.
+* Download an archive file and unpack it in target directory.
+* Create files on the instance.
+* Create Linux users or groups on the instance.
+* Execute arbitrary commands.
+
+--
+.ebextensions/01run.config
+
+    # Install packages from yum, rubygems, python, or rpm.
+    packages:
+      yum:
+        libmemcached: []
+
+    # Download an archive file and unpack it in target directory.
+    sources:
+      /etc/myapp: http://s3.amazonaws.com/mybucket/myobject
+
+    # Create files on the instance.
+    files:
+      "/home/ec2-user/myfile2" :
+        mode: "000755"
+        owner: root
+        group: root
+        content: |
+          # this is my file
+          # with content
+
+--
+
+### Customize AWS Resources
+
+--
+
+### Configuration Variables
+
+--
+
 # Demo
 
 --
 
-# Bonus slides
-## Things that are hard.
-
---
-
-### Identity management
-
---
-
-### Customization
-
-* Non-amazon services?
-* Node and python on the same server?
+# Customization & Configuration

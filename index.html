@@ -402,17 +402,17 @@ pre .chunk {
 
   <div class="slide" id="slide-1">
     <section class="slide-content"><h1 id="elastic-beanstalk">Elastic Beanstalk</h1>
-<h2 id="rocking-devops-on-aws-">Rocking devops on AWS.</h2>
+<h2 id="rocking-devops-on-aws">Rocking devops on AWS</h2>
 </section>
   </div>
   <div class="slide hidden" id="slide-2">
     <section class="slide-content"><h3 id="features">Features</h3>
 <ul>
-<li>Multiple environment configurations.</li>
-<li>Provisions resources sensibly.</li>
-<li>Autoscaling.</li>
-<li>Cloudwatch monitoring pre-configured out of the box.</li>
-<li>No additional charge above AWS resource usage.</li>
+<li>Multiple environment configurations</li>
+<li>Provisions resources sensibly</li>
+<li>Autoscaling</li>
+<li>Cloudwatch monitoring pre-configured</li>
+<li>No additional charge above AWS resource usage</li>
 </ul>
 </section>
   </div>
@@ -428,6 +428,10 @@ $ rake databag:secret_upload[production,webapp_whatever]
 $ rake chef:client_run[*-app-2-not-app-*, production]
 $ rake chef:client_run[*-app-not-app-2-*, production]
 # Illegible log messages follow.</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="and-this">And this</h3>
 <p>Deploying:</p>
 <pre><code>$ grunt deploy:assets
 # Update deploy hash. Commit to monolithic ops repo.
@@ -439,7 +443,7 @@ $ rake chef:query[&quot;*-site-rw-*&quot;,production]
 $ rake chef:query[&quot;*-site-rw-*&quot;,production]</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-4">
+  <div class="slide hidden" id="slide-5">
     <section class="slide-content"><h3 id="into-this">Into this</h3>
 <p>Updating a configuration secret:</p>
 <pre><code>$ workon pn-processing
@@ -449,44 +453,57 @@ $ eb setenv API_KEY=secret</code></pre>
 # Boom.</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-5">
-    <section class="slide-content"><h3 id="node-">Node!</h3>
-<p>Supported versions as of March 31, 2015:</p>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="supported-platforms">Supported Platforms</h3>
 <ul>
-<li>0.8.26</li>
-<li>0.8.28</li>
-<li>0.10.21</li>
-<li>0.10.26</li>
-<li>0.10.31</li>
-<li>0.12.0</li>
+<li>Java</li>
+<li>Windows and .NET</li>
+<li>Node.js</li>
+<li>PHP</li>
+<li>Python</li>
+<li>Ruby</li>
+<li><strong>Docker</strong></li>
+<li>Custom AMI</li>
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-6">
+  <div class="slide hidden" id="slide-7">
     <section class="slide-content"><p><img src="./img/aws.png" alt="aws halo"></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-7">
+  <div class="slide hidden" id="slide-8">
     <section class="slide-content"><h3 id="components-eb-lingo-">Components (EB lingo)</h3>
 <h4 id="application">Application</h4>
 <p>A logical collection of Elastic Beanstalk components, conceptually similar to a
 folder.</p>
-<h4 id="application-version">Application Version</h4>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h4 id="application-version">Application Version</h4>
 <p>A labeled zipped file of deployable code. Stored on S3 and labelled by the git
 commit hash.</p>
-<h4 id="environment">Environment</h4>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h4 id="environment">Environment</h4>
 <p>A single application version that is deployed onto AWS resources, labeled by an
 environment name. For example, we typically have a Staging and a Production
-environment.</p>
-<h4 id="environment-configuration">Environment Configuration</h4>
+environment for each application.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h4 id="environment-configuration">Environment Configuration</h4>
 <p>A collection of settings and parameters that define how an environment behaves,
 including process environment variables.</p>
-<h4 id="environment-tiers">Environment Tiers</h4>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h4 id="environment-tiers">Environment Tiers</h4>
 <p>Either a <em>Web Server</em> that handles HTTP requests, or a <em>Worker</em> that handles
 background processing tasks.</p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-8">
+  <div class="slide hidden" id="slide-13">
     <section class="slide-content"><h3 id="batteries-not-included">Batteries not included</h3>
 <p>Every EB application comes with:</p>
 <ul>
@@ -501,12 +518,17 @@ background processing tasks.</p>
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-9">
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><p><img src="./img/eb-architecture.png" alt="eb architecture"></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
     <section class="slide-content"><p><img src="./img/eb-console.png" alt="eb console"></p>
 </section>
   </div>
-  <div class="slide hidden" id="slide-10">
+  <div class="slide hidden" id="slide-16">
     <section class="slide-content"><h3 id="eb-cli">eb cli</h3>
+<p>Depends on python, run it in virtualenv.</p>
 <pre><code>$ eb -h
 commands:
    clone       Clones an environment.
@@ -528,28 +550,61 @@ commands:
    use         Sets default environment.</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-11">
-    <section class="slide-content"><h1 id="demo">Demo</h1>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h1 id="customization-configuration">Customization &amp; Configuration</h1>
 </section>
   </div>
-  <div class="slide hidden" id="slide-12">
-    <section class="slide-content"><h1 id="bonus-slides">Bonus slides</h1>
-<h2 id="things-that-are-hard-">Things that are hard.</h2>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-13">
-    <section class="slide-content"><h3 id="identity-management">Identity management</h3>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-14">
-    <section class="slide-content"><h3 id="customization">Customization</h3>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h3 id="customize-ec2-instances-configuration">Customize EC2 instances configuration</h3>
+<p>Add a <code>.config</code> file in .ebextensions directory to:</p>
 <ul>
-<li>Non-amazon services?</li>
-<li>Node and python on the same server?</li>
+<li>Install packages from yum, rubygems, python, or rpm.</li>
+<li>Download an archive file and unpack it in target directory.</li>
+<li>Create files on the instance.</li>
+<li>Create Linux users or groups on the instance.</li>
+<li>Execute arbitrary commands.</li>
 </ul>
 </section>
   </div>
-  <div class="slide hidden" id="slide-15">
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><p>.ebextensions/01run.config</p>
+<pre><code># Install packages from yum, rubygems, python, or rpm.
+packages:
+  yum:
+    libmemcached: []
+
+# Download an archive file and unpack it in target directory.
+sources:
+  /etc/myapp: http://s3.amazonaws.com/mybucket/myobject
+
+# Create files on the instance.
+files:
+  &quot;/home/ec2-user/myfile2&quot; :
+    mode: &quot;000755&quot;
+    owner: root
+    group: root
+    content: |
+      # this is my file
+      # with content</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h3 id="customize-aws-resources">Customize AWS Resources</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h3 id="configuration-variables">Configuration Variables</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h1 id="demo">Demo</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h1 id="customization-configuration">Customization &amp; Configuration</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
     <section class="slide-content"><div class="author">
   <h1 class="name">Daniel Paz-Soldan</h1>
     <h3 class="twitter">
