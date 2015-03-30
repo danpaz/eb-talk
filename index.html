@@ -410,8 +410,9 @@ pre .chunk {
 <ul>
 <li>Multiple environment configurations</li>
 <li>Provisions resources sensibly</li>
-<li>Autoscaling</li>
+<li>Autoscaling and load balancing</li>
 <li>Cloudwatch monitoring pre-configured</li>
+<li>Zero-downtime via Rolling Updates or URL swap</li>
 <li>No additional charge above AWS resource usage</li>
 </ul>
 </section>
@@ -563,7 +564,10 @@ commands:
 <li>Create files on the instance.</li>
 <li>Create Linux users or groups on the instance.</li>
 <li>Execute arbitrary commands.</li>
+<li>Service start/stop.</li>
 </ul>
+<p>Files are run in alpha order. For example, .ebextensions/01run.config is
+executed before .ebextensions/02do.config.</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-19">
@@ -590,21 +594,42 @@ files:
   </div>
   <div class="slide hidden" id="slide-20">
     <section class="slide-content"><h3 id="customize-aws-resources">Customize AWS Resources</h3>
+<ul>
+<li>Add an SQS queue to a webserver tier.</li>
+<li>Add an ElastiCache cluster.</li>
+<li>Add CloudWatch alarms to the ELB.</li>
+</ul>
+<p><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-environment-resources-examples.html">Examples.</a></p>
 </section>
   </div>
   <div class="slide hidden" id="slide-21">
-    <section class="slide-content"><h3 id="configuration-variables">Configuration Variables</h3>
+    <section class="slide-content"><h3 id="configuration">Configuration</h3>
+<p>Use the <code>config</code> module to manage configuration variables in development, test,
+staging, production (based on NODE_ENV).</p>
+<p>Use process environment variables for NODE_ENV and secrets.</p>
+<pre><code>$ eb setenv NODE_ENV=staging,API_KEY=secret
+# Used in code as process.env.API_KEY</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-22">
-    <section class="slide-content"><h1 id="demo">Demo</h1>
+    <section class="slide-content"><h3 id="server-patching">Server Patching</h3>
+<ul>
+<li>Not automated.</li>
+<li>EB releases new platform packages every now and then.</li>
+<li>You can use .ebextensions file to update on each deploy, but you might break
+something.</li>
+<li>Or you can create a new environments to replace old ones periodically.</li>
+</ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-23">
-    <section class="slide-content"><h1 id="customization-configuration">Customization &amp; Configuration</h1>
+    <section class="slide-content"><h1 id="demo">Demo</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-24">
+    <section class="slide-content"></section>
+  </div>
+  <div class="slide hidden" id="slide-25">
     <section class="slide-content"><div class="author">
   <h1 class="name">Daniel Paz-Soldan</h1>
     <h3 class="twitter">

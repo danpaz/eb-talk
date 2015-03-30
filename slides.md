@@ -18,8 +18,9 @@ progress: true
 
 * Multiple environment configurations
 * Provisions resources sensibly
-* Autoscaling
+* Autoscaling and load balancing
 * Cloudwatch monitoring pre-configured
+* Zero-downtime via Rolling Updates or URL swap
 * No additional charge above AWS resource usage
 
 --
@@ -180,6 +181,10 @@ Add a `.config` file in .ebextensions directory to:
 * Create files on the instance.
 * Create Linux users or groups on the instance.
 * Execute arbitrary commands.
+* Service start/stop.
+
+Files are run in alpha order. For example, .ebextensions/01run.config is
+executed before .ebextensions/02do.config.
 
 --
 .ebextensions/01run.config
@@ -207,14 +212,36 @@ Add a `.config` file in .ebextensions directory to:
 
 ### Customize AWS Resources
 
+* Add an SQS queue to a webserver tier.
+* Add an ElastiCache cluster.
+* Add CloudWatch alarms to the ELB.
+
+[Examples.](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-environment-resources-examples.html)
+
 --
 
-### Configuration Variables
+### Configuration
+
+Use the `config` module to manage configuration variables in development, test,
+staging, production (based on NODE_ENV).
+
+Use process environment variables for NODE_ENV and secrets.
+
+    $ eb setenv NODE_ENV=staging,API_KEY=secret
+    # Used in code as process.env.API_KEY
+
+--
+
+### Server Patching
+
+* Not automated.
+* EB releases new platform packages every now and then.
+* You can use .ebextensions file to update on each deploy, but you might break
+  something.
+* Or you can create a new environments to replace old ones periodically.
 
 --
 
 # Demo
 
 --
-
-# Customization & Configuration
