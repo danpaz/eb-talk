@@ -145,7 +145,7 @@ Every EB application comes with:
 
 ### eb cli
 
-Depends on python, run it in virtualenv.
+Depends on python. Run it in virtualenv.
 
     $ eb -h
     commands:
@@ -173,21 +173,19 @@ Depends on python, run it in virtualenv.
 
 --
 
-### Customize EC2 instances configuration
+### EC2 instance configuration
 
 Add a `.config` file in .ebextensions directory to:
 * Install packages from yum, rubygems, python, or rpm.
-* Download an archive file and unpack it in target directory.
 * Create files on the instance.
 * Create Linux users or groups on the instance.
 * Execute arbitrary commands.
 * Service start/stop.
 
+--
+
 Files are run in alpha order. For example, .ebextensions/01run.config is
 executed before .ebextensions/02do.config.
-
---
-.ebextensions/01run.config
 
     # Install packages from yum, rubygems, python, or rpm.
     packages:
@@ -216,7 +214,7 @@ executed before .ebextensions/02do.config.
 * Add an ElastiCache cluster.
 * Add CloudWatch alarms to the ELB.
 
-[Examples.](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-environment-resources-examples.html)
+[Examples](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-environment-resources-examples.html).
 
 --
 
@@ -243,5 +241,3 @@ Use process environment variables for NODE_ENV and secrets.
 --
 
 # Demo
-
---

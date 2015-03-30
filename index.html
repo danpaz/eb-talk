@@ -529,7 +529,7 @@ background processing tasks.</p>
   </div>
   <div class="slide hidden" id="slide-16">
     <section class="slide-content"><h3 id="eb-cli">eb cli</h3>
-<p>Depends on python, run it in virtualenv.</p>
+<p>Depends on python. Run it in virtualenv.</p>
 <pre><code>$ eb -h
 commands:
    clone       Clones an environment.
@@ -556,22 +556,20 @@ commands:
 </section>
   </div>
   <div class="slide hidden" id="slide-18">
-    <section class="slide-content"><h3 id="customize-ec2-instances-configuration">Customize EC2 instances configuration</h3>
+    <section class="slide-content"><h3 id="ec2-instance-configuration">EC2 instance configuration</h3>
 <p>Add a <code>.config</code> file in .ebextensions directory to:</p>
 <ul>
 <li>Install packages from yum, rubygems, python, or rpm.</li>
-<li>Download an archive file and unpack it in target directory.</li>
 <li>Create files on the instance.</li>
 <li>Create Linux users or groups on the instance.</li>
 <li>Execute arbitrary commands.</li>
 <li>Service start/stop.</li>
 </ul>
-<p>Files are run in alpha order. For example, .ebextensions/01run.config is
-executed before .ebextensions/02do.config.</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-19">
-    <section class="slide-content"><p>.ebextensions/01run.config</p>
+    <section class="slide-content"><p>Files are run in alpha order. For example, .ebextensions/01run.config is
+executed before .ebextensions/02do.config.</p>
 <pre><code># Install packages from yum, rubygems, python, or rpm.
 packages:
   yum:
@@ -599,7 +597,7 @@ files:
 <li>Add an ElastiCache cluster.</li>
 <li>Add CloudWatch alarms to the ELB.</li>
 </ul>
-<p><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-environment-resources-examples.html">Examples.</a></p>
+<p><a href="http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customize-environment-resources-examples.html">Examples</a>.</p>
 </section>
   </div>
   <div class="slide hidden" id="slide-21">
@@ -627,9 +625,6 @@ something.</li>
 </section>
   </div>
   <div class="slide hidden" id="slide-24">
-    <section class="slide-content"></section>
-  </div>
-  <div class="slide hidden" id="slide-25">
     <section class="slide-content"><div class="author">
   <h1 class="name">Daniel Paz-Soldan</h1>
     <h3 class="twitter">
